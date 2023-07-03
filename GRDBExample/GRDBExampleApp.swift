@@ -11,7 +11,18 @@ import SwiftUI
 struct GRDBExampleApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(\.appDatabase, .shared)
         }
+    }
+}
+
+private struct AppDatabaseKey: EnvironmentKey {
+    static var defaultValue: AppDatabase { .shared }
+}
+
+extension EnvironmentValues {
+    var appDatabase: AppDatabase {
+        get { self[AppDatabaseKey.self] }
+        set { self[AppDatabaseKey.self] = newValue }
     }
 }
